@@ -29,7 +29,21 @@ class GeneradorPiramidesApp:
         btn_limpiar = tk.Button(self.root, text="Limpiar", command=self.limpiar_texto)
         btn_limpiar.pack()
     def generar_piramide(self, *args):
-        return 0
+        caracter = self.entry_caracter.get()
+        numero_str = self.entry_numero.get()
+        
+        if not numero_str.isdigit():
+            return
+        
+        numero = int(numero_str)
+
+        piramide = ""
+        for i in range(1, numero + 1):
+            piramide += " " * (numero - i) + caracter * (2 * i - 1) + "\n"
+        
+        self.text_area.delete("1.0", tk.END)  # Limpia el área de texto antes de imprimir la nueva pirámide
+        self.text_area.insert(tk.END, piramide)
+        self.iniciar_reloj()
     def limpiar_texto(self):
-        return 0
+        self.text_area.delete("1.0", tk.END)
     
