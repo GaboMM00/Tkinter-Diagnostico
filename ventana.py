@@ -1,13 +1,18 @@
+
 import tkinter as tk
 import time
+
 class GeneradorPiramidesApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Generador de Pirámides")
         
+        # Inicializar el tiempo del reloj
+        self.tiempo_inicial = 0
+
         # Configuración de la interfaz gráfica
         self.setup_gui()
-        
+
     def setup_gui(self):
         # Campos de entrada
         tk.Label(self.root, text="Introduce un carácter:").pack()
@@ -28,6 +33,7 @@ class GeneradorPiramidesApp:
         # Botón para limpiar
         btn_limpiar = tk.Button(self.root, text="Limpiar", command=self.limpiar_texto)
         btn_limpiar.pack()
+
     def generar_piramide(self, *args):
         caracter = self.entry_caracter.get()
         numero_str = self.entry_numero.get()
@@ -44,6 +50,15 @@ class GeneradorPiramidesApp:
         self.text_area.delete("1.0", tk.END)  # Limpia el área de texto antes de imprimir la nueva pirámide
         self.text_area.insert(tk.END, piramide)
         self.iniciar_reloj()
+
     def limpiar_texto(self):
         self.text_area.delete("1.0", tk.END)
-    
+        self.detener_reloj()
+
+    def iniciar_reloj(self):
+        self.tiempo_inicial = time.time()
+
+    def detener_reloj(self):
+        tiempo_final = time.time()
+        tiempo_total = tiempo_final - self.tiempo_inicial
+        self.text_area.insert(tk.END, f"\nTiempo en pantalla: {tiempo_total:.2f} segundos\n")
